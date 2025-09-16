@@ -36,147 +36,190 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="col-4">
-                <form @submit.prevent="saveData()">
+                <Form @submit="saveData">
                     <div class="form-row form-section">
                         <h4 class="mb-3">Add Employee Info</h4>
+
+                        <!-- First Name -->
                         <div class="col-12 mb-3">
                             <label
                                 class="form-label form-label-top"
                                 for="firstName"
-                                >First Name
-                                <span class="form-required">*</span>
+                            >
+                                First Name <span class="form-required">*</span>
                             </label>
-                            <input
-                                type="text"
+                            <Field
+                                name="first_name"
+                                rules="required"
                                 class="form-control"
-                                v-model="employee.first_name"
                                 placeholder="First Name"
                             />
+                            <ErrorMessage
+                                name="first_name"
+                                class="text-danger"
+                            />
                         </div>
+
+                        <!-- Last Name -->
                         <div class="col-12 mb-3">
                             <label
                                 class="form-label form-label-top"
                                 for="lastName"
-                                >Last Name
-                                <span class="form-required">*</span>
+                            >
+                                Last Name <span class="form-required">*</span>
                             </label>
-                            <input
-                                type="text"
+                            <Field
+                                name="last_name"
+                                rules="required"
                                 class="form-control"
-                                v-model="employee.last_name"
                                 placeholder="Last Name"
                             />
+                            <ErrorMessage
+                                name="last_name"
+                                class="text-danger"
+                            />
                         </div>
+
+                        <!-- Email -->
                         <div class="col-12 mb-3">
-                            <label class="form-label form-label-top" for="email"
-                                >Email
-                                <span class="form-required">*</span></label
+                            <label
+                                class="form-label form-label-top"
+                                for="email"
                             >
-                            <input
+                                Email <span class="form-required">*</span>
+                            </label>
+                            <Field
+                                name="email"
                                 type="email"
+                                rules="validateEmail"
                                 class="form-control"
-                                v-model="employee.email"
                                 placeholder="Email"
                             />
+                            <ErrorMessage name="email" class="text-danger" />
                         </div>
+
+                        <!-- Phone -->
                         <div class="col-12 mb-3">
-                            <label class="form-label form-label-top" for="email"
-                                >Phone No.
-                                <span class="form-required">*</span></label
+                            <label
+                                class="form-label form-label-top"
+                                for="phone"
                             >
-                            <input
-                                type="text"
+                                Phone No. <span class="form-required">*</span>
+                            </label>
+                            <Field
+                                name="phone"
+                                rules="required|min:10"
                                 class="form-control"
-                                v-model="employee.phone"
                                 placeholder="Phone No."
                             />
+                            <ErrorMessage name="phone" class="text-danger" />
                         </div>
+
+                        <!-- Current Experience -->
                         <div class="col-12 mb-3">
                             <label
                                 class="form-label form-label-top"
                                 for="currentExperience"
                                 >Current Experience</label
                             >
-                            <input
-                                type="text"
+                            <Field
+                                name="current_experience"
+                                rules="required"
                                 class="form-control"
-                                v-model="employee.current_experience"
                                 placeholder="Current Experience"
                             />
+                            <ErrorMessage
+                                name="current_experience"
+                                class="text-danger"
+                            />
                         </div>
+
+                        <!-- City -->
                         <div class="col-12 mb-3">
                             <label class="form-label form-label-top" for="city"
                                 >City</label
                             >
-                            <input
-                                type="text"
+                            <Field
+                                name="city"
+                                rules="required"
                                 class="form-control"
-                                v-model="employee.city"
                                 placeholder="City"
                             />
+                            <ErrorMessage name="city" class="text-danger" />
                         </div>
 
+                        <!-- State -->
                         <div class="col-12 mb-3">
                             <label class="form-label form-label-top" for="state"
                                 >State</label
                             >
-                            <input
-                                type="text"
+                            <Field
+                                name="state"
+                                rules="required"
                                 class="form-control"
-                                v-model="employee.state"
                                 placeholder="State"
                             />
+                            <ErrorMessage name="state" class="text-danger" />
                         </div>
 
+                        <!-- Gender -->
                         <div class="col-12 mb-3">
-                            <label
-                                class="form-label form-label-top"
-                                for="fullName"
+                            <label class="form-label form-label-top"
                                 >Gender</label
                             >
                             <div class="form-check form-check-inline">
-                                <input
-                                    class="form-check-input"
-                                    type="radio"
+                                <Field
                                     name="gender"
+                                    type="radio"
                                     value="male"
-                                    v-model="employee.gender"
+                                    rules="required"
+                                    class="form-check-input"
                                 />
-                                <label
-                                    class="form-check-label"
-                                    for="gridRadios1"
-                                >
-                                    Male
-                                </label>
+                                <label class="form-check-label">Male</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input
-                                    class="form-check-input"
-                                    type="radio"
+                                <Field
                                     name="gender"
+                                    type="radio"
                                     value="female"
-                                    v-model="employee.gender"
+                                    class="form-check-input"
                                 />
-                                <label
-                                    class="form-check-label"
-                                    for="gridRadios2"
-                                >
-                                    Female
-                                </label>
+                                <label class="form-check-label">Female</label>
                             </div>
+                            <ErrorMessage name="gender" class="text-danger" />
                         </div>
+
+                        <!-- Submit Button -->
                         <button class="btn btn-primary" type="submit">
                             SUBMIT
                         </button>
                     </div>
-                </form>
+                </Form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { useToast } from "vue-toastification";
+const toast = useToast();
+
+import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
+import { required, min } from "@vee-validate/rules";
+
+defineRule("required", required);
+defineRule("min", min);
+
+defineRule("validateEmail", (value) => {
+    const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
+    if (!emailRegex.test(value)) {
+        return "Invalid email format";
+    }
+    return true;
+});
+
 export default {
     data() {
         return {
@@ -193,15 +236,23 @@ export default {
         };
     },
 
+    components: {
+        Form,
+        Field,
+        ErrorMessage,
+    },
+
     methods: {
-        saveData() {
+        saveData(values) {
             axios
-                .post("/employee/create", this.employee)
+                .post("/employee/create", values)
                 .then((response) => {
                     console.log(response);
+                    toast.success("Your data has been saved successfully!");
                 })
                 .catch((error) => {
-                    console.log("Error here");
+                    console.error("Error:", error);
+                    toast.error("Something went wrong!");
                 });
         },
     },

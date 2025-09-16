@@ -7,12 +7,17 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrashAlt, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+import Main from "./components/employee/Main.vue";
+
 library.add(faTrashAlt, faUserEdit);
 const app = createApp({});
 
-app.component("font-awesome-icon", FontAwesomeIcon);
+app.use(Toast);
 
-import Main from "./components/employee/Main.vue";
+app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.component("employee-main", Main);
 
