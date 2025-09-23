@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::post('/employee/create', [EmployeeController::class, 'store']);
+Route::get('employee/list', [EmployeeController::class, 'index']);

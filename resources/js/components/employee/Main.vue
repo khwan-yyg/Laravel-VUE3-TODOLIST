@@ -9,16 +9,18 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
+                            <th scope="col">State</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Naran code</td>
-                            <td>example@gmail.com</td>
-                            <td>1234567890</td>
+                        <tr v-for="value in list_of_employees">
+                            <th scope="row">{{ value.id }}</th>
+                            <td>
+                                {{ value.first_name }} {{ value.last_name }}
+                            </td>
+                            <td>{{ value.email }}</td>
+                            <td>{{ value.state }}</td>
                             <td>
                                 <span class="mr-2">
                                     <font-awesome-icon
@@ -122,8 +124,9 @@
                             <label
                                 class="form-label form-label-top"
                                 for="currentExperience"
-                                >Current Experience</label
-                            >
+                                >Current Experience
+                                <span class="form-required">*</span>
+                            </label>
                             <Field
                                 name="current_experience"
                                 rules="required"
@@ -139,8 +142,9 @@
                         <!-- City -->
                         <div class="col-12 mb-3">
                             <label class="form-label form-label-top" for="city"
-                                >City</label
-                            >
+                                >City
+                                <span class="form-required">*</span>
+                            </label>
                             <Field
                                 name="city"
                                 rules="required"
@@ -153,8 +157,9 @@
                         <!-- State -->
                         <div class="col-12 mb-3">
                             <label class="form-label form-label-top" for="state"
-                                >State</label
-                            >
+                                >State
+                                <span class="form-required">*</span>
+                            </label>
                             <Field
                                 name="state"
                                 rules="required"
@@ -167,8 +172,9 @@
                         <!-- Gender -->
                         <div class="col-12 mb-3">
                             <label class="form-label form-label-top"
-                                >Gender</label
-                            >
+                                >Gender
+                                <span class="form-required">*</span>
+                            </label>
                             <div class="form-check form-check-inline">
                                 <Field
                                     name="gender"
@@ -233,7 +239,26 @@ export default {
                 state: "",
                 gender: "",
             },
+
+            list_of_employees: [],
         };
+    },
+
+    mounted() {
+        console.log("on mounted");
+        axios
+            .get("employee/list")
+            .then((response) => {
+                console.log(response.data);
+                this.list_of_employees = response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+
+    created() {
+        console.log("on created");
     },
 
     components: {
